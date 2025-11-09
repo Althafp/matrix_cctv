@@ -336,7 +336,7 @@ Respond in JSON:
                 'data': {'message': f'☁️  Analyzing {len(image_files)} images from GCS (direct URLs - ZERO downloads!)'}
             }
         else:
-        image_files = list(self.images_dir.glob("*.jpg")) + list(self.images_dir.glob("*.jpeg"))
+            image_files = list(self.images_dir.glob("*.jpg")) + list(self.images_dir.glob("*.jpeg"))
             yield {
                 'type': 'log',
                 'data': {'message': f'📂 Found {len(image_files)} images in local directory'}
