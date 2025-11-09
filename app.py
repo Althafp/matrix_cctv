@@ -483,32 +483,42 @@ def health():
     return jsonify({'status': 'healthy'})
 
 
-if __name__ == '__main__':
+# Initialize analyzer at module level (so it runs under gunicorn too!)
+def initialize_app():
+    """Initialize the application"""
     # Create necessary directories
     Path('templates').mkdir(exist_ok=True)
     Path('static').mkdir(exist_ok=True)
     Path('static/css').mkdir(exist_ok=True)
     Path('static/js').mkdir(exist_ok=True)
-    Path('camera_images').mkdir(exist_ok=True)
-    Path('test').mkdir(exist_ok=True)
     Path('sessions').mkdir(exist_ok=True)
     Path('analysis_results').mkdir(exist_ok=True)
     
+    # Initialize the analyzer
+    print("\n🚀 Initializing Camera Analyzer...")
+    init_success = init_global_analyzer()
+    
+    if not init_success:
+        print("⚠️  WARNING: Analyzer initialization failed!")
+        print("The server will start, but analysis features may not work.")
+    else:
+        print("✅ Analyzer initialized successfully!")
+    
+    return init_success
+
+# Run initialization when module is imported (works with gunicorn!)
+initialize_app()
+
+
+if __name__ == '__main__':
+    # Local development mode
     print("""
 ╔═══════════════════════════════════════════════════════════════╗
-║          Flask Camera Analyzer - Starting Server              ║
+║          Flask Camera Analyzer - Development Mode             ║
 ║                                                                ║
 ║  🚀 Production-Ready CCTV Analysis Platform                   ║
 ╚═══════════════════════════════════════════════════════════════╝
 """)
-    
-    # Initialize the analyzer
-    init_success = init_global_analyzer()
-    
-    if not init_success:
-        print("\n⚠️  WARNING: Analyzer initialization failed!")
-        print("The server will start, but analysis features may not work.")
-        print("Please check that '13data.xlsx' and 'test' directory exist.\n")
     
     print("""
 ╔═══════════════════════════════════════════════════════════════╗
