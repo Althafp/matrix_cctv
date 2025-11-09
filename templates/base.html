@@ -151,21 +151,21 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     
-    <!-- Google Maps API -->
+    <!-- Custom JS (load BEFORE Google Maps so initGoogleMaps is defined) -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+    <!-- Google Maps API (loads AFTER app.js) -->
     {% if google_maps_api_key %}
     <script>
         window.GOOGLE_MAPS_API_KEY = "{{ google_maps_api_key }}";
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places&callback=initGoogleMaps"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places&callback=initGoogleMaps&loading=async"></script>
     {% else %}
     <script>
         window.GOOGLE_MAPS_API_KEY = "";
         console.warn("⚠️ Google Maps API key not found. Please add GOOGLE_MAPS_API_KEY to your .env file");
     </script>
     {% endif %}
-    
-    <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>
