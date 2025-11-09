@@ -38,17 +38,21 @@ class GCSStorageManager:
         self.bucket_name = os.getenv('GCS_BUCKET_NAME')
         self.credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
         
-        # Validate configuration
-        if not all([self.project_id, self.bucket_name, self.credentials_path]):
+        # Validate configuration (credentials optional on Cloud Run)
+        if not all([self.project_id, self.bucket_name]):
             raise ValueError(
                 "Missing GCS configuration! Required in .env:\n"
                 "  - GCS_PROJECT_ID\n"
-                "  - GCS_BUCKET_NAME\n"
-                "  - GOOGLE_APPLICATION_CREDENTIALS"
+                "  - GCS_BUCKET_NAME"
             )
         
-        # Set credentials environment variable (required by google-cloud-storage)
-        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = self.credentials_path
+        # Set credentials if provided (for local development)
+        # On Cloud Run, default service account is used automatically
+        if self.credentials_path and os.path.exists(self.credentials_path):
+            os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = self.credentials_path
+            print(f"🔑 Using credentials from: {self.credentials_path}")
+        else:
+            print(f"🔑 Using default GCP service account (Cloud Run)"))
         
         # Initialize client
         try:
