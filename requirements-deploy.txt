@@ -1,0 +1,31 @@
+# Production Requirements for Deployment
+# Optimized and minimal dependencies
+
+# Web Server (Production-grade)
+gunicorn==21.2.0
+gevent==23.9.1
+
+# Core Application
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# AI/ML
+openai==1.6.1
+
+# Google Cloud
+google-cloud-storage==2.14.0
+google-auth==2.25.2
+
+# Data Processing
+pandas==2.1.4
+openpyxl==3.1.2
+numpy==1.26.2
+
+# Utilities
+python-dotenv==1.0.0
+tqdm==4.66.1
+requests==2.31.0
+
+# Date/Time
+python-dateutil==2.8.2
+

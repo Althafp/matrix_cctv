@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "cctv-analyzer",
+  "builds": [
+    {
+      "src": "flask_app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "flask_app.py"
+    }
+  ],
+  "env": {
+    "USE_GCS_STORAGE": "true",
+    "GCS_PROJECT_ID": "focus-cumulus-477711-g5",
+    "GCS_BUCKET_NAME": "ap_cctv_test_bucket",
+    "IMAGES_DIR": "test",
+    "MAX_WORKERS": "2"
+  }
+}
+

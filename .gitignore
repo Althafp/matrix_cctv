@@ -1,0 +1,138 @@
+# ============================================================================
+# CCTV Camera Analyzer - Git Ignore File
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Environment & Secrets
+# ----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+gcs-key.json
+*-key.json
+
+# ----------------------------------------------------------------------------
+# Python
+# ----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# ----------------------------------------------------------------------------
+# Flask
+# ----------------------------------------------------------------------------
+instance/
+.webassets-cache
+
+# ----------------------------------------------------------------------------
+# Data & Cache
+# ----------------------------------------------------------------------------
+# GCS cache directory
+gcs_cache/
+
+# Analysis results
+analysis_results/*.json
+analysis_results/*.txt
+
+# Session data
+sessions/*/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+
+# ----------------------------------------------------------------------------
+# Images (Optional - uncomment if you want to exclude images)
+# ----------------------------------------------------------------------------
+# *.jpg
+# *.jpeg
+# *.png
+# test/
+# camera_images/
+
+# ----------------------------------------------------------------------------
+# Operating System
+# ----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ----------------------------------------------------------------------------
+# Testing & Coverage
+# ----------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.cover
+.hypothesis/
+
+# ----------------------------------------------------------------------------
+# Misc
+# ----------------------------------------------------------------------------
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+

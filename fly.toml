@@ -1,0 +1,33 @@
+# Fly.io deployment configuration
+# FREE: 3 VMs (256 MB RAM each)
+
+app = "cctv-analyzer"
+primary_region = "iad"
+
+[build]
+  image = "cctv-analyzer:latest"
+
+[env]
+  PORT = "8080"
+  USE_GCS_STORAGE = "true"
+  GCS_PROJECT_ID = "focus-cumulus-477711-g5"
+  GCS_BUCKET_NAME = "ap_cctv_test_bucket"
+  IMAGES_DIR = "test"
+  MAX_WORKERS = "5"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
+
+[deploy]
+  strategy = "immediate"
+

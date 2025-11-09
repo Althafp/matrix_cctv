@@ -1,0 +1,58 @@
+# Don't copy these to Docker image
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation (not needed in production)
+*.md
+UPLOAD_GUIDE.md
+LAZY_LOADING.md
+README_GCS.md
+QUICKSTART_GCS.md
+SOLUTION_SUMMARY.md
+CACHE_MANAGEMENT.md
+
+# Local data (NOT needed in production - uses GCS!)
+a_test/
+test/
+camera_images/
+gcs_cache/
+sessions/
+analysis_results/
+
+# Upload scripts (not needed in production)
+upload_to_gcs.py
+quick_upload.py
+cleanup_cache.py
+gcs_storage.py
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
