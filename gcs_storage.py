@@ -294,15 +294,28 @@ class GCSStorageManager:
         
         try:
             blob = self.bucket.blob(blob_name)
-            url = blob.generate_signed_url(
-                version="v4",
-                expiration=expiration_minutes * 60,
-                method="GET"
-            )
-            return url
+            
+            # Check if blob exists first
+            if not blob.exists():
+                return None
+            
+            # Try to generate signed URL
+            try:
+                url = blob.generate_signed_url(
+                    version="v4",
+                    expiration=expiration_minutes * 60,
+                    method="GET"
+                )
+                return url
+            except Exception as sign_error:
+                # If signing fails (permissions issue), try public URL
+                print(f"⚠️  Signed URL failed, trying public URL: {sign_error}")
+                # Return public URL if bucket is public
+                public_url = f"https://storage.googleapis.com/{self.bucket_name}/{blob_name}"
+                return public_url
             
         except Exception as e:
-            print(f"❌ Error generating signed URL for {blob_name}: {e}")
+            print(f"❌ Error getting URL for {blob_name}: {e}")
             return None
     
     def upload_file(self, local_path: Path, blob_name: str) -> bool:
