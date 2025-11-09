@@ -52,7 +52,7 @@ class GCSStorageManager:
             os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = self.credentials_path
             print(f"🔑 Using credentials from: {self.credentials_path}")
         else:
-            print(f"🔑 Using default GCP service account (Cloud Run)"))
+            print(f"🔑 Using default GCP service account (Cloud Run)")
         
         # Initialize client
         try:
