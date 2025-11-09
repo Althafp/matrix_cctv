@@ -12,7 +12,7 @@ automatic_scaling:
 env_variables:
   PYTHONUNBUFFERED: "1"
 
-entrypoint: gunicorn -b :$PORT flask_app:app --workers 1 --threads 8 --timeout 0
+entrypoint: gunicorn -b :$PORT app:app --workers 1 --threads 8 --timeout 0
 
 handlers:
   - url: /static
