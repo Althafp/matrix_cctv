@@ -47,7 +47,7 @@ analysis_results/
 upload_to_gcs.py
 quick_upload.py
 cleanup_cache.py
-gcs_storage.py
+# gcs_storage.py - REQUIRED! Don't exclude!
 
 # Logs
 *.log
