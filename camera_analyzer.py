@@ -412,7 +412,7 @@ Respond ONLY with valid JSON."""
                     "url": f"data:image/jpeg;base64,{image_data}",
                     "detail": "high"
                 }
-            
+
             response = self.client.chat.completions.create(
                 model="gpt-4o",
                 messages=[
