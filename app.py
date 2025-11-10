@@ -426,17 +426,28 @@ def get_image(filename):
             
             for prefix in possible_prefixes:
                 blob_name = f"{prefix}{filename}" if prefix else filename
+                print(f"  🔍 Trying: {blob_name}")
                 
-                # Generate signed URL (valid for 1 hour)
-                signed_url = gcs_manager.get_image_url(blob_name, expiration_minutes=60)
-                
-                if signed_url:
-                    print(f"  ✅ Generated signed URL for: {blob_name}")
-                    print(f"  🌐 Redirecting browser to GCS directly (ZERO server storage!)")
-                    # Redirect to GCS signed URL - browser fetches directly from GCS!
-                    return redirect(signed_url)
+                # Check if blob exists first
+                try:
+                    blob = gcs_manager.bucket.blob(blob_name)
+                    if blob.exists():
+                        # Try signed URL first
+                        signed_url = gcs_manager.get_image_url(blob_name, expiration_minutes=60)
+                        
+                        if signed_url:
+                            print(f"  ✅ Generated signed URL")
+                            return redirect(signed_url)
+                        else:
+                            # Fallback: Public URL (if bucket is public or has uniform access)
+                            print(f"  ⚠️  Signed URL failed, using public URL")
+                            public_url = f"https://storage.googleapis.com/{gcs_manager.bucket_name}/{blob_name}"
+                            return redirect(public_url)
+                except Exception as e:
+                    print(f"  ❌ Error checking blob: {e}")
+                    continue
             
-            print(f"  ⚠️  Could not generate URL, trying local fallback...")
+            print(f"  ⚠️  Image not found in GCS, trying local fallback...")
         
         # Fallback: Try local directories (only for local mode or development)
         possible_dirs = ['test', 'a_test', 'camera_images', 'images']
